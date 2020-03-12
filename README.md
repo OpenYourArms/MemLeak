@@ -47,6 +47,7 @@ MemLeak类拥有`RAII`（资源获取即初始化，借助对象构造函数和�
 ## 5其它做法
 ### 重载operator new
 重载`operator new`为`operator new(文件名,行号,size,其它参数)`,文件名可以使用宏`__FILE__`，行号`__LINE__`。
+
 缺点：不能检测到malloc和free导致的内存泄漏
 ## 6现有工具，待探索
 ### vs的`<crtdbg.h>`

@@ -113,7 +113,7 @@ namespace oyas{
             MRListNode *node=(MRListNode*)sys_malloc(sizeof(MRListNode));
             m++;
             node->init(p);
-            std::unique_lock<std::mutex>(mtx1);  // scope *1-*2
+            std::lock_guard<std::mutex> l(mtx);  // scope *1-*2
             node->next=mrHead->next;            // *1
             mrHead->next=node;                  // *2
             node->pre=mrHead;
@@ -123,7 +123,7 @@ namespace oyas{
             return p;
         }
         void remove_node(void* p){
-            std::unique_lock<std::mutex>(mtx2);
+            std::lock_guard<std::mutex> l(mtx);
             f++;
             MRListNode *node=mrHead->next;
             while(node){
@@ -149,7 +149,7 @@ namespace oyas{
         }
     private:
         MRListNode *mrHead;
-        std::mutex mtx1,mtx2;
+        std::mutex mtx;
         std::atomic<int> m,f;
     };
 
